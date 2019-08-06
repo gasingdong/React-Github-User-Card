@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import SearchForm from './components/SeachForm';
 import { UserData } from './data/GithubData';
+import axios from 'axios';
 
 interface AppState {
   username: string;
@@ -20,10 +21,47 @@ class App extends React.Component<{}, AppState> {
   };
 
   private setUsername = (username: string): void => {
-    this.setState({
-      username: username,
-    });
+    this.setState(
+      (prevState): AppState => ({
+        ...prevState,
+        username: username,
+      })
+    );
   };
+
+  private setUser = (user: UserData): void => {
+    this.setState(
+      (prevState): AppState => ({
+        ...prevState,
+        user: user,
+      })
+    );
+  };
+
+  public componentDidUpdate(prevProps: {}, prevState: AppState): void {
+    const prevUsername = prevState.username;
+    const { username } = this.state;
+
+    if (username === prevUsername) {
+      return;
+    }
+
+    const getGitHubUser = async (): Promise<void> => {
+      try {
+        const response = await axios.get<UserData>(
+          `https://api.github.com/users/${username}`
+        );
+
+        if (response) {
+          this.setUser(response.data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getGitHubUser();
+  }
 
   public render(): React.ReactElement {
     const { username, user } = this.state;
