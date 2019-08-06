@@ -1,6 +1,7 @@
 export interface UserData {
   login: string;
   name: string;
+  location: string;
   followers: number;
   followers_url: string;
   html_url: string;

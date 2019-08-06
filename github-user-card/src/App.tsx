@@ -21,6 +21,7 @@ class App extends React.Component<{}, AppState> {
     user: {
       login: '',
       name: '',
+      location: '',
       followers: 0,
       followers_url: '',
       html_url: '',
@@ -114,6 +115,7 @@ class App extends React.Component<{}, AppState> {
     return (
       <div className="app">
         <div className="app-wrapper">
+          <h1>GitHub User Cards</h1>
           <SearchForm setUsername={this.setUsername} />
           {this.getCardComponent()}
         </div>

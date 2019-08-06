@@ -1,0 +1,13 @@
+.card {
+  margin: 20px 0;
+  display: flex;
+
+  img {
+    width: 200px;
+    border-radius: 10px;
+  }
+
+  &_profile {
+    margin-left: 20px;
+  }
+}

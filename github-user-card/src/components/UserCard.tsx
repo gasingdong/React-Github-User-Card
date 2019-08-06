@@ -1,7 +1,7 @@
 import React from 'react';
 import { UserData, FollowerData } from '../data/GithubData';
 import axios from 'axios';
-import { Card } from '@blueprintjs/core';
+import { Card, Elevation } from '@blueprintjs/core';
 interface UserCardProps {
   user: UserData;
 }
@@ -52,16 +52,26 @@ class UserCard extends React.Component<UserCardProps, UserCardState> {
   }
 
   public render(): React.ReactElement {
-    const { name, avatar_url } = this.props.user;
+    const { name, avatar_url, login, location, followers } = this.props.user;
     return (
       <>
-        <Card>
-          <h1>{name}</h1>
-          <img src={avatar_url} alt="avatar" />
+        <Card className="card" elevation={Elevation.TWO}>
+          <div className="card_photo">
+            <img src={avatar_url} alt="avatar" />
+          </div>
+          <div className="card_profile">
+            <h2>{name}</h2>
+            <h3>{login}</h3>
+            <p>
+              Location: {location}
+              <br />
+              Followers: {followers}
+            </p>
+          </div>
         </Card>
         {this.state.followers.map(
           (follower: FollowerData): React.ReactElement => (
-            <h1 key={follower.login}>{follower.login}</h1>
+            <h2 key={follower.login}>{follower.login}</h2>
           )
         )}
       </>
