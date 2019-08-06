@@ -23,7 +23,7 @@ class UserCard extends React.Component<UserCardProps, UserCardState> {
     );
   };
 
-  public componentDidMount(): void {
+  private updateFollowers(): void {
     const { login } = this.props.user;
     const getFollowers = async (): Promise<void> => {
       try {
@@ -40,6 +40,14 @@ class UserCard extends React.Component<UserCardProps, UserCardState> {
     };
 
     getFollowers();
+  }
+
+  public componentDidMount(): void {
+    this.updateFollowers();
+  }
+
+  public componentDidUpdate(): void {
+    this.updateFollowers();
   }
 
   public render(): React.ReactElement {
