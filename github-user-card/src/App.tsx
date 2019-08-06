@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import SearchForm from './components/SeachForm';
 
 class App extends React.Component {
   public state = {
@@ -7,7 +8,7 @@ class App extends React.Component {
   };
 
   public render(): React.ReactElement {
-    return <h1>Hello world!</h1>;
+    return <SearchForm />;
   }
 }
 
