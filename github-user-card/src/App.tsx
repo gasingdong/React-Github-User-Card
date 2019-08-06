@@ -2,9 +2,18 @@ import React from 'react';
 import './App.css';
 import SearchForm from './components/SeachForm';
 
-class App extends React.Component {
+interface AppState {
+  username: string;
+}
+class App extends React.Component<{}, AppState> {
   public state = {
-    user: {},
+    username: '',
+  };
+
+  private setUsername = (username: string): void => {
+    this.setState({
+      username: username,
+    });
   };
 
   public render(): React.ReactElement {
