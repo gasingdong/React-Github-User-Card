@@ -6,7 +6,9 @@ const SearchError = (): React.ReactElement => {
     <>
       The username could not be found.
       <br />
-      Try double-checking your spelling or searching another username.
+      Try double-checking your spelling
+      <br />
+      or searching another username.
     </>
   );
 

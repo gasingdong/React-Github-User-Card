@@ -7,10 +7,13 @@ import { UserData } from './data/GithubData';
 import axios from 'axios';
 import UserCard from './components/UserCard';
 import SearchError from './components/SearchError';
+import { Spinner } from '@blueprintjs/core';
 
 interface AppState {
   username: string;
   user: UserData;
+  error: boolean;
+  loading: boolean;
 }
 class App extends React.Component<{}, AppState> {
   public state = {
@@ -23,6 +26,8 @@ class App extends React.Component<{}, AppState> {
       html_url: '',
       avatar_url: '',
     },
+    error: false,
+    loading: false,
   };
 
   private setUsername = (username: string): void => {
@@ -43,6 +48,24 @@ class App extends React.Component<{}, AppState> {
     );
   };
 
+  private setError = (error: boolean): void => {
+    this.setState(
+      (prevState): AppState => ({
+        ...prevState,
+        error,
+      })
+    );
+  };
+
+  private setLoading = (loading: boolean): void => {
+    this.setState(
+      (prevState): AppState => ({
+        ...prevState,
+        loading,
+      })
+    );
+  };
+
   public componentDidUpdate(prevProps: {}, prevState: AppState): void {
     const prevUsername = prevState.username;
     const { username } = this.state;
@@ -53,32 +76,46 @@ class App extends React.Component<{}, AppState> {
 
     const getGitHubUser = async (): Promise<void> => {
       try {
+        this.setLoading(true);
         const response = await axios.get<UserData>(
           `https://api.github.com/users/${username}`
         );
 
         if (response) {
           this.setUser(response.data);
+          this.setError(false);
         }
       } catch (err) {
         console.log(err);
+        this.setError(true);
+      } finally {
+        this.setLoading(false);
       }
     };
 
     getGitHubUser();
   }
 
+  private getCardComponent = (): React.ReactElement => {
+    const { username, user, error, loading } = this.state;
+
+    if (!username) {
+      return <></>;
+    } else if (loading) {
+      return <Spinner />;
+    } else if (error) {
+      return <SearchError />;
+    } else {
+      return <UserCard user={user} />;
+    }
+  };
+
   public render(): React.ReactElement {
-    const { username, user } = this.state;
     return (
       <div className="app">
         <div className="app-wrapper">
           <SearchForm setUsername={this.setUsername} />
-          {user && user.login !== '' ? (
-            <UserCard user={user} />
-          ) : (
-            <SearchError />
-          )}
+          {this.getCardComponent()}
         </div>
       </div>
     );
