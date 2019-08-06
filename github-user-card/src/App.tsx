@@ -13,6 +13,7 @@ class App extends React.Component<{}, AppState> {
   public state = {
     username: '',
     user: {
+      login: '',
       name: '',
       followers: 0,
       followers_url: '',
@@ -25,7 +26,7 @@ class App extends React.Component<{}, AppState> {
     this.setState(
       (prevState): AppState => ({
         ...prevState,
-        username: username,
+        username,
       })
     );
   };
@@ -34,7 +35,7 @@ class App extends React.Component<{}, AppState> {
     this.setState(
       (prevState): AppState => ({
         ...prevState,
-        user: user,
+        user,
       })
     );
   };
@@ -54,7 +55,6 @@ class App extends React.Component<{}, AppState> {
         );
 
         if (response) {
-          console.log(response.data);
           this.setUser(response.data);
         }
       } catch (err) {
@@ -70,7 +70,7 @@ class App extends React.Component<{}, AppState> {
     return (
       <>
         <SearchForm setUsername={this.setUsername} />
-        {user && user.name !== '' ? (
+        {user && user.login !== '' ? (
           <UserCard user={user} />
         ) : (
           <h1>No user found</h1>
