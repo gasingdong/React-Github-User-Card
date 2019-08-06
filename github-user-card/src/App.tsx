@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './App.css';
+import './App.scss';
 
 import SearchForm from './components/SeachForm';
 import { UserData } from './data/GithubData';
@@ -70,14 +70,14 @@ class App extends React.Component<{}, AppState> {
   public render(): React.ReactElement {
     const { username, user } = this.state;
     return (
-      <>
+      <div className="app">
         <SearchForm setUsername={this.setUsername} />
         {user && user.login !== '' ? (
           <UserCard user={user} />
         ) : (
           <h1>No user found</h1>
         )}
-      </>
+      </div>
     );
   }
 }
