@@ -1,4 +1,5 @@
 import React from 'react';
+import { InputGroup } from '@blueprintjs/core';
 
 interface SearchFormProps {
   setUsername: (username: string) => void;
@@ -29,14 +30,12 @@ class SearchForm extends React.Component<SearchFormProps, SearchFormState> {
     const { searchTerm } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
-        <input
-          type="text"
-          name="search"
+        <InputGroup
+          leftIcon="search"
+          placeholder="Search a GitHub username"
           value={searchTerm}
-          placeholder="Enter a GitHub username"
           onChange={this.handleChange}
         />
-        <button type="submit">Search</button>
       </form>
     );
   }
