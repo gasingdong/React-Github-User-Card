@@ -1,3 +1,16 @@
 @import-normalize;
 @import "~@blueprintjs/core/lib/css/blueprint.css";
 @import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
+
+.app {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-wrapper {
+  width: 80%;
+  max-width: 800px;
+  margin: 2% 20px;
+}

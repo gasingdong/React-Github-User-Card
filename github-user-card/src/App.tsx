@@ -71,12 +71,14 @@ class App extends React.Component<{}, AppState> {
     const { username, user } = this.state;
     return (
       <div className="app">
-        <SearchForm setUsername={this.setUsername} />
-        {user && user.login !== '' ? (
-          <UserCard user={user} />
-        ) : (
-          <h1>No user found</h1>
-        )}
+        <div className="app-wrapper">
+          <SearchForm setUsername={this.setUsername} />
+          {user && user.login !== '' ? (
+            <UserCard user={user} />
+          ) : (
+            <h1>No user found</h1>
+          )}
+        </div>
       </div>
     );
   }
