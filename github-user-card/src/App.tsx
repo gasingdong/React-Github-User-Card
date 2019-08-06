@@ -7,13 +7,14 @@ import { UserData } from './data/GithubData';
 import axios from 'axios';
 import UserCard from './components/UserCard';
 import SearchError from './components/SearchError';
-import { Spinner } from '@blueprintjs/core';
+import { Spinner, Switch } from '@blueprintjs/core';
 
 interface AppState {
   username: string;
   user: UserData;
   error: boolean;
   loading: boolean;
+  dark: boolean;
 }
 class App extends React.Component<{}, AppState> {
   public state = {
@@ -29,6 +30,7 @@ class App extends React.Component<{}, AppState> {
     },
     error: false,
     loading: false,
+    dark: false,
   };
 
   private setUsername = (username: string): void => {
@@ -63,6 +65,15 @@ class App extends React.Component<{}, AppState> {
       (prevState): AppState => ({
         ...prevState,
         loading,
+      })
+    );
+  };
+
+  private setDark = (dark: boolean): void => {
+    this.setState(
+      (prevState): AppState => ({
+        ...prevState,
+        dark,
       })
     );
   };
@@ -111,10 +122,26 @@ class App extends React.Component<{}, AppState> {
     }
   };
 
+  private handleSwitchChange = (): void => {
+    this.setDark(!this.state.dark);
+
+    const bodyElement = document.querySelector('body');
+
+    if (bodyElement) {
+      !this.state.dark
+        ? bodyElement.classList.add('bp3-dark')
+        : bodyElement.classList.remove('bp3-dark');
+    }
+  };
+
   public render(): React.ReactElement {
     return (
       <div className="app">
         <div className="app-wrapper">
+          <Switch
+            checked={this.state.dark}
+            onChange={this.handleSwitchChange}
+          />
           <h1>GitHub User Cards</h1>
           <SearchForm setUsername={this.setUsername} />
           {this.getCardComponent()}
