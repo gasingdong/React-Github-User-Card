@@ -1,9 +1,12 @@
 import React from 'react';
 
+interface SearchFormProps {
+  setUsername: (username: string) => void;
+}
 interface SearchFormState {
   searchTerm: string;
 }
-class SearchForm extends React.Component<{}, SearchFormState> {
+class SearchForm extends React.Component<SearchFormProps, SearchFormState> {
   public state = {
     searchTerm: '',
   };
@@ -15,10 +18,17 @@ class SearchForm extends React.Component<{}, SearchFormState> {
     });
   };
 
+  private handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+    const { setUsername } = this.props;
+    const { searchTerm } = this.state;
+    event.preventDefault();
+    setUsername(searchTerm);
+  };
+
   public render(): React.ReactElement {
     const { searchTerm } = this.state;
     return (
-      <form>
+      <form onSubmit={this.handleSubmit}>
         <input
           type="text"
           name="search"

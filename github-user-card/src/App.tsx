@@ -17,7 +17,13 @@ class App extends React.Component<{}, AppState> {
   };
 
   public render(): React.ReactElement {
-    return <SearchForm />;
+    const { username } = this.state;
+    return (
+      <>
+        <SearchForm setUsername={this.setUsername} />
+        <h1>User: {username}</h1>
+      </>
+    );
   }
 }
 
