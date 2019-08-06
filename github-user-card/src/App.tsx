@@ -1,5 +1,7 @@
 import React from 'react';
+
 import './App.css';
+
 import SearchForm from './components/SeachForm';
 import { UserData } from './data/GithubData';
 import axios from 'axios';
