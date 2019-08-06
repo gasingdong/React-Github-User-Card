@@ -1,7 +1,7 @@
 export interface UserData {
   name: string;
   followers: number;
-  followersUrl: string;
-  htmlUrl: string;
-  avatarUrl: string;
+  followers_url: string;
+  html_url: string;
+  avatar_url: string;
 }

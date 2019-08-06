@@ -3,6 +3,7 @@ import './App.css';
 import SearchForm from './components/SeachForm';
 import { UserData } from './data/GithubData';
 import axios from 'axios';
+import UserCard from './components/UserCard';
 
 interface AppState {
   username: string;
@@ -14,9 +15,9 @@ class App extends React.Component<{}, AppState> {
     user: {
       name: '',
       followers: 0,
-      followersUrl: '',
-      htmlUrl: '',
-      avatarUrl: '',
+      followers_url: '',
+      html_url: '',
+      avatar_url: '',
     },
   };
 
@@ -53,6 +54,7 @@ class App extends React.Component<{}, AppState> {
         );
 
         if (response) {
+          console.log(response.data);
           this.setUser(response.data);
         }
       } catch (err) {
@@ -69,7 +71,7 @@ class App extends React.Component<{}, AppState> {
       <>
         <SearchForm setUsername={this.setUsername} />
         {user && user.name !== '' ? (
-          <h1>User: {user.name} </h1>
+          <UserCard user={user} />
         ) : (
           <h1>No user found</h1>
         )}
