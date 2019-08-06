@@ -6,6 +6,7 @@ import SearchForm from './components/SeachForm';
 import { UserData } from './data/GithubData';
 import axios from 'axios';
 import UserCard from './components/UserCard';
+import SearchError from './components/SearchError';
 
 interface AppState {
   username: string;
@@ -76,7 +77,7 @@ class App extends React.Component<{}, AppState> {
           {user && user.login !== '' ? (
             <UserCard user={user} />
           ) : (
-            <h1>No user found</h1>
+            <SearchError />
           )}
         </div>
       </div>
