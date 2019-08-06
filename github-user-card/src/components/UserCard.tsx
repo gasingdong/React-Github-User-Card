@@ -1,7 +1,7 @@
 import React from 'react';
 import { UserData, FollowerData } from '../data/GithubData';
 import axios from 'axios';
-import { Card, Elevation } from '@blueprintjs/core';
+import { Card, Elevation, Popover, Button, Intent } from '@blueprintjs/core';
 interface UserCardProps {
   user: UserData;
 }
@@ -62,11 +62,14 @@ class UserCard extends React.Component<UserCardProps, UserCardState> {
           <div className="card_profile">
             <h2>{name}</h2>
             <h3>{login}</h3>
-            <p>
-              Location: {location}
-              <br />
-              Followers: {followers}
-            </p>
+            <p>Location: {location}</p>
+            <Popover>
+              <Button
+                intent={Intent.PRIMARY}
+                icon="follower"
+                text={`${this.state.followers.length}`}
+              ></Button>
+            </Popover>
           </div>
         </Card>
         {this.state.followers.map(
